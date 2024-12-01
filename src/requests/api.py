@@ -49,7 +49,8 @@ def request(method, url, **kwargs):
       >>> req
       <Response [200]>
     """
-    pass
+    with sessions.Session() as session:
+        return session.request(method=method, url=url, **kwargs)
 
 def get(url, params=None, **kwargs):
     """Sends a GET request.
@@ -61,7 +62,7 @@ def get(url, params=None, **kwargs):
     :return: :class:`Response <Response>` object
     :rtype: requests.Response
     """
-    pass
+    return request('get', url, params=params, **kwargs)
 
 def options(url, **kwargs):
     """Sends an OPTIONS request.
@@ -71,7 +72,7 @@ def options(url, **kwargs):
     :return: :class:`Response <Response>` object
     :rtype: requests.Response
     """
-    pass
+    return request('options', url, **kwargs)
 
 def head(url, **kwargs):
     """Sends a HEAD request.
@@ -83,7 +84,8 @@ def head(url, **kwargs):
     :return: :class:`Response <Response>` object
     :rtype: requests.Response
     """
-    pass
+    kwargs.setdefault('allow_redirects', False)
+    return request('head', url, **kwargs)
 
 def post(url, data=None, json=None, **kwargs):
     """Sends a POST request.
@@ -96,7 +98,7 @@ def post(url, data=None, json=None, **kwargs):
     :return: :class:`Response <Response>` object
     :rtype: requests.Response
     """
-    pass
+    return request('post', url, data=data, json=json, **kwargs)
 
 def put(url, data=None, **kwargs):
     """Sends a PUT request.
@@ -109,7 +111,7 @@ def put(url, data=None, **kwargs):
     :return: :class:`Response <Response>` object
     :rtype: requests.Response
     """
-    pass
+    return request('put', url, data=data, **kwargs)
 
 def patch(url, data=None, **kwargs):
     """Sends a PATCH request.
@@ -122,7 +124,7 @@ def patch(url, data=None, **kwargs):
     :return: :class:`Response <Response>` object
     :rtype: requests.Response
     """
-    pass
+    return request('patch', url, data=data, **kwargs)
 
 def delete(url, **kwargs):
     """Sends a DELETE request.
@@ -132,4 +134,4 @@ def delete(url, **kwargs):
     :return: :class:`Response <Response>` object
     :rtype: requests.Response
     """
-    pass
+    return request('delete', url, **kwargs)
